@@ -100,6 +100,6 @@ function renderScoreboard(){
   }).join('');
 }
 </script>
-<script>function unlockSite(){var p=document.getElementById("sitePass").value;if(p==="CUSCUSCUS"){sessionStorage.setItem("sw_auth","1");document.getElementById("pwGate").classList.add("hidden")}else{document.getElementById("sitePassErr").textContent="Verkeerd wachtwoord!"}}if(sessionStorage.getItem("sw_auth")==="1"){document.getElementById("pwGate").classList.add("hidden")}</script>
+<script>async function hashPw(s){var e=new TextEncoder().encode(s);var h=await crypto.subtle.digest("SHA-256",e);return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,"0")}).join("")}async function unlockSite(){var p=document.getElementById("sitePass").value;var h=await hashPw(p);if(h==="5249f4fcc629efa0e6d6b2bf746b6c5de61611ce719ad61ac820fbe5c8cece66"){sessionStorage.setItem("sw_auth","1");document.getElementById("pwGate").classList.add("hidden")}else{document.getElementById("sitePassErr").textContent="Verkeerd wachtwoord!"}}if(sessionStorage.getItem("sw_auth")==="1"){document.getElementById("pwGate").classList.add("hidden")}</script>
 </body>
 </html>
