@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 4rem}
 h1{font-size:2rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f8fafc;margin-bottom:.5rem}
 p{color:#94a3b8;margin-bottom:2.5rem;font-size:1rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:700px;width:90%}
@@ -46,6 +46,19 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
 .success-msg{color:#4ade80;font-size:.85rem;display:none}
 .success-msg.show{display:block}
 footer{position:fixed;bottom:1rem;left:0;right:0;text-align:center;color:#64748b;font-size:.75rem;font-weight:600;letter-spacing:.03em;opacity:.6}
+
+.scoreboard{max-width:700px;width:90%;margin-top:2.5rem}
+.scoreboard h2{font-size:1rem;font-weight:700;color:#f8fafc;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;text-align:center}
+.scoreboard-list{display:flex;flex-direction:column;gap:.5rem}
+.score-row{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:.6rem 1rem;transition:background .2s}
+.score-row:first-child{background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.2)}
+.score-row:nth-child(2){background:rgba(148,163,184,.06);border-color:rgba(148,163,184,.15)}
+.score-row:nth-child(3){background:rgba(180,83,9,.06);border-color:rgba(180,83,9,.15)}
+.score-rank{font-size:1.3rem;width:2rem;text-align:center}
+.score-name{flex:1;font-weight:700;font-size:.95rem;color:#f8fafc}
+.score-team{font-size:.75rem;color:#64748b;font-weight:600}
+.score-count{display:flex;align-items:center;gap:.3rem;background:rgba(99,102,241,.15);color:#a5b4fc;padding:.25rem .65rem;border-radius:999px;font-weight:800;font-size:.85rem}
+.score-empty{text-align:center;color:#64748b;font-size:.9rem;padding:1rem}
 </style>
 </head>
 <body>
@@ -59,6 +72,11 @@ footer{position:fixed;bottom:1rem;left:0;right:0;text-align:center;color:#64748b
   <a class="team-link" href="egain.html"><span>💬</span>eGain</a>
   <a class="team-link" href="kennismanagement.html"><span>📚</span>Kennismanagement</a>
   <a class="team-link" href="design-system.html"><span>🏗️</span>Design System</a>
+</div>
+
+<div class="scoreboard">
+  <h2>🏆 Scrum Master Credits</h2>
+  <div class="scoreboard-list" id="scoreboard"><div class="score-empty">Laden...</div></div>
 </div>
 
 <button class="admin-btn" onclick="openAdmin()" title="Admin">🔒</button>
@@ -107,10 +125,47 @@ firebase.initializeApp({
 
 var db = firebase.database();
 var TEAMS = ['design','app','web','klantenservice-tooling','egain','kennismanagement','design-system'];
+var TEAM_NAMES = {design:'Design',app:'App',web:'Web','klantenservice-tooling':'KS Tooling',egain:'eGain',kennismanagement:'Kennismgmt','design-system':'Design System'};
 var DEFAULT_MEMBERS = [
   {name:'Lid 1',active:true},{name:'Lid 2',active:true},{name:'Lid 3',active:true},
   {name:'Lid 4',active:true},{name:'Lid 5',active:true},{name:'Lid 6',active:true}
 ];
+
+// Scoreboard: listen to all teams
+var allHistory = {};
+TEAMS.forEach(function(slug){
+  db.ref('teams/' + slug + '/history').on('value', function(snap){
+    allHistory[slug] = snap.val() || [];
+    renderScoreboard();
+  });
+});
+
+function renderScoreboard(){
+  var counts = {};
+  TEAMS.forEach(function(slug){
+    var hist = allHistory[slug] || [];
+    hist.forEach(function(entry){
+      var key = entry.name + '||' + slug;
+      if(!counts[key]) counts[key] = {name: entry.name, team: slug, count: 0};
+      counts[key].count++;
+    });
+  });
+  var sorted = Object.values(counts).sort(function(a,b){ return b.count - a.count; });
+  var el = document.getElementById('scoreboard');
+  if(sorted.length === 0){
+    el.innerHTML = '<div class="score-empty">Nog geen hosts gedraaid.</div>';
+    return;
+  }
+  var medals = ['🥇','🥈','🥉'];
+  el.innerHTML = sorted.slice(0, 15).map(function(item, i){
+    var rank = i < 3 ? medals[i] : '<span style="color:#64748b;font-size:.85rem">' + (i+1) + '</span>';
+    return '<div class="score-row">'
+      + '<div class="score-rank">' + rank + '</div>'
+      + '<div style="flex:1"><div class="score-name">' + item.name + '</div><div class="score-team">' + TEAM_NAMES[item.team] + '</div></div>'
+      + '<div class="score-count">' + item.count + 'x</div>'
+      + '</div>';
+  }).join('');
+}
 
 function openAdmin(){
   document.getElementById('adminOverlay').classList.add('open');
