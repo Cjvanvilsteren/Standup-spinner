@@ -140,7 +140,7 @@ var teamRef = db.ref('teams/' + TEAM_SLUG);
 
 var members = [];
 var hosted = [];
-var history = [];
+var hostHistory = [];
 var spinning = false;
 var currentAngle = 0;
 
@@ -160,18 +160,18 @@ teamRef.on('value', function(snapshot) {
   if (data) {
     members = data.members || JSON.parse(JSON.stringify(DEFAULT_MEMBERS));
     hosted = data.hosted || [];
-    history = data.history || [];
+    hostHistory = data.history || [];
   } else {
     members = JSON.parse(JSON.stringify(DEFAULT_MEMBERS));
     hosted = [];
-    history = [];
-    teamRef.set({ members: members, hosted: hosted, history: history });
+    hostHistory = [];
+    teamRef.set({ members: members, hosted: hosted, history: hostHistory });
   }
   drawWheel(currentAngle);
   if (document.getElementById('panelOverlay').classList.contains('open')) renderPanel();
 });
 
-function save(){ teamRef.set({ members: members, hosted: hosted, history: history }); }
+function save(){ teamRef.set({ members: members, hosted: hosted, history: hostHistory }); }
 function activeMembers(){ return members.filter(function(m){ return m.active; }); }
 
 function drawWheel(angle){
@@ -248,7 +248,7 @@ function spin(){
       var week = getWeekNumber(now2);
       var year = now2.getFullYear();
       if(hosted.indexOf(winner) === -1){ hosted.push(winner); }
-      history.push({ name: winner, week: week, year: year });
+      hostHistory.push({ name: winner, week: week, year: year });
       save();
       setTimeout(function(){ showWinner(winner); }, 300);
     }
@@ -339,11 +339,11 @@ function renderPanel(){
   }
 
   var hist = document.getElementById('historySection');
-  if(history.length === 0){
+  if(hostHistory.length === 0){
     hist.innerHTML = '<em>Nog geen geschiedenis.</em>';
   } else {
-    var rows = history.slice().reverse().map(function(entry,idx){
-      var ri = history.length - 1 - idx;
+    var rows = hostHistory.slice().reverse().map(function(entry,idx){
+      var ri = hostHistory.length - 1 - idx;
       return '<tr><td class="week">Week ' + entry.week + '</td><td class="name-col">' + entry.name + '</td><td>' + entry.year + '</td><td><button class="del-hist-btn" onclick="removeHistory(' + ri + ')">\u2715</button></td></tr>';
     }).join('');
     hist.innerHTML = '<table><thead><tr><th>Week</th><th>Host</th><th>Jaar</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
@@ -361,7 +361,7 @@ function addMember(){
 function removeMember(i){ members.splice(i,1); save(); renderPanel(); }
 function renameMember(i,v){ members[i].name = v.trim() || members[i].name; save(); renderPanel(); }
 function toggleMember(i){ members[i].active = !members[i].active; save(); renderPanel(); }
-function removeHistory(i){ history.splice(i,1); save(); renderPanel(); }
+function removeHistory(i){ hostHistory.splice(i,1); save(); renderPanel(); }
 function resetSprint(){ hosted = []; save(); renderPanel(); }
 
 drawWheel(currentAngle);
