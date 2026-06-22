@@ -10,35 +10,25 @@
 body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
 h1{font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f8fafc;margin-top:1.5rem;text-align:center}
 h1 span{display:block;font-size:.85rem;font-weight:600;letter-spacing:.12em;color:#94a3b8;margin-top:.25rem}
-
+.home-link{position:fixed;top:1rem;left:1rem;color:#64748b;text-decoration:none;font-size:1.4rem;z-index:100;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);transition:background .2s,color .2s}
+.home-link:hover{background:rgba(255,255,255,.15);color:#e2e8f0}
 .main{display:flex;flex-direction:column;align-items:center;gap:1.5rem;margin-top:1rem;position:relative}
-
-/* Wheel container */
 .wheel-wrap{position:relative;width:420px;height:420px}
 canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25))}
-
-/* Ticker arrow */
 .ticker{position:absolute;top:-18px;left:50%;transform:translateX(-50%);z-index:10;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:34px solid #f59e0b;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));transition:transform .05s}
 .ticker.tick{transform:translateX(-50%) rotate(8deg)}
-
-/* Spin button */
 .spin-btn{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;font-family:inherit;font-size:1.4rem;font-weight:800;padding:.85rem 2.8rem;border-radius:999px;cursor:pointer;letter-spacing:.04em;box-shadow:0 4px 20px rgba(99,102,241,.4);transition:transform .15s,box-shadow .15s}
 .spin-btn:hover{transform:scale(1.05);box-shadow:0 6px 28px rgba(99,102,241,.55)}
 .spin-btn:active{transform:scale(.97)}
 .spin-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-
-/* Settings gear */
 .gear-btn{position:fixed;top:1rem;right:1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#94a3b8;font-size:1.5rem;width:44px;height:44px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;z-index:100}
 .gear-btn:hover{background:rgba(255,255,255,.15);color:#e2e8f0}
-
-/* Side panel */
 .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
 .panel-overlay.open{opacity:1;pointer-events:all}
 .panel{position:fixed;top:0;right:0;bottom:0;width:380px;max-width:90vw;background:#1e293b;z-index:201;transform:translateX(100%);transition:transform .3s ease;padding:2rem 1.5rem;overflow-y:auto;display:flex;flex-direction:column;gap:1.2rem}
 .panel-overlay.open .panel{transform:translateX(0)}
 .panel h2{font-size:1.1rem;font-weight:700;color:#f8fafc}
 .panel label{font-size:.8rem;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-
 .member-list{display:flex;flex-direction:column;gap:.5rem}
 .member-row{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.45rem .65rem}
 .member-row.absent{opacity:.45}
@@ -47,17 +37,13 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 .member-row button:hover{color:#f87171;background:rgba(248,113,113,.1)}
 .toggle-btn{font-size:.95rem!important}
 .toggle-btn:hover{color:#fbbf24!important;background:rgba(251,191,36,.1)!important}
-
 .add-row{display:flex;gap:.5rem}
 .add-row input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.5rem .75rem;color:#e2e8f0;font-family:inherit;font-size:.9rem;outline:none}
 .add-row input:focus{border-color:#6366f1}
 .add-row button{background:#6366f1;color:#fff;border:none;border-radius:8px;padding:.5rem .85rem;font-family:inherit;font-weight:700;cursor:pointer;font-size:.9rem}
 .add-row button:hover{background:#818cf8}
-
 .reset-btn{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#f87171;font-family:inherit;font-weight:600;font-size:.85rem;padding:.55rem 1rem;border-radius:8px;cursor:pointer;transition:background .15s}
 .reset-btn:hover{background:rgba(248,113,113,.2)}
-
-/* Winner overlay */
 .winner-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:300;background:rgba(0,0,0,.65);opacity:0;pointer-events:none;transition:opacity .4s}
 .winner-overlay.show{opacity:1;pointer-events:all}
 .winner-card{background:linear-gradient(135deg,#1e293b,#334155);border:2px solid rgba(255,255,255,.1);border-radius:24px;padding:2.5rem 3rem;text-align:center;transform:scale(.8);transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 25px 60px rgba(0,0,0,.5)}
@@ -67,11 +53,7 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 .winner-card .sub{font-size:1.05rem;color:#94a3b8;font-weight:600}
 .winner-card .close-btn{margin-top:1.5rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;font-family:inherit;font-weight:600;font-size:.9rem;padding:.5rem 1.5rem;border-radius:999px;cursor:pointer}
 .winner-card .close-btn:hover{background:rgba(255,255,255,.15)}
-
-/* Confetti canvas */
 #confetti{position:fixed;inset:0;z-index:299;pointer-events:none}
-
-/* Sprint history row */
 .history-section{margin-top:.5rem;font-size:.85rem;color:#64748b}
 .history-section ul{list-style:none;margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem}
 .history-section li{background:rgba(74,222,128,.1);color:#4ade80;padding:.2rem .6rem;border-radius:6px;font-weight:600;font-size:.8rem}
@@ -79,6 +61,7 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 </head>
 <body>
 
+<a href="index.html" class="home-link" title="Terug naar teams">&larr;</a>
 <h1>Design<span>Standup Host Picker</span></h1>
 
 <div class="main">
@@ -89,11 +72,11 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
   <button class="spin-btn" id="spinBtn" onclick="spin()">Draai!</button>
 </div>
 
-<button class="gear-btn" onclick="togglePanel()">⚙️</button>
+<button class="gear-btn" onclick="togglePanel()">&x2699;&xFE0F;</button>
 
 <div class="panel-overlay" id="panelOverlay" onclick="togglePanel()">
   <div class="panel" onclick="event.stopPropagation()">
-    <h2>⚙️ Instellingen</h2>
+    <h2>&x2699;&xFE0F; Instellingen</h2>
     <label>Teamleden</label>
     <div class="member-list" id="memberList"></div>
     <div class="add-row">
@@ -103,13 +86,13 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
     <hr style="border:none;border-top:1px solid rgba(255,255,255,.06)">
     <label>Sprint geschiedenis</label>
     <div class="history-section" id="historySection"></div>
-    <button class="reset-btn" onclick="resetHistory()">🔄 Reset sprint</button>
+    <button class="reset-btn" onclick="resetHistory()">&x1F504; Reset sprint</button>
   </div>
 </div>
 
 <div class="winner-overlay" id="winnerOverlay" onclick="closeWinner()">
   <div class="winner-card" onclick="event.stopPropagation()">
-    <div class="emoji">🎉</div>
+    <div class="emoji">&x1F389;</div>
     <div class="name" id="winnerName"></div>
     <div class="sub">is de host deze week!</div>
     <button class="close-btn" onclick="closeWinner()">Sluiten</button>
@@ -118,15 +101,31 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 
 <canvas id="confetti"></canvas>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
+const TEAM_SLUG = 'design';
 const COLORS = ['#6366f1','#8b5cf6','#ec4899','#f43f5e','#f59e0b','#10b981','#06b6d4','#3b82f6','#a855f7','#f97316'];
 const DEFAULT_MEMBERS = [
-  {name:'Anna',active:true},{name:'Boris',active:true},{name:'Chiara',active:true},
-  {name:'David',active:true},{name:'Eva',active:true},{name:'Frank',active:true}
+  {name:'Lid 1',active:true},{name:'Lid 2',active:true},{name:'Lid 3',active:true},
+  {name:'Lid 4',active:true},{name:'Lid 5',active:true},{name:'Lid 6',active:true}
 ];
 
-let members = JSON.parse(localStorage.getItem('sw_design_members')) || structuredClone(DEFAULT_MEMBERS);
-let hosted = JSON.parse(localStorage.getItem('sw_design_hosted')) || [];
+firebase.initializeApp({
+  apiKey: "AIzaSyALzWCrO8LBu-zz2nEH4VbgmwtFMytpW08",
+  authDomain: "stand-up-picker-a2570.firebaseapp.com",
+  databaseURL: "https://stand-up-picker-a2570-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "stand-up-picker-a2570",
+  storageBucket: "stand-up-picker-a2570.firebasestorage.app",
+  messagingSenderId: "404106710989",
+  appId: "1:404106710989:web:4433e3bc3f797ece50be84"
+});
+
+const db = firebase.database();
+const teamRef = db.ref('teams/' + TEAM_SLUG);
+
+let members = [];
+let hosted = [];
 let spinning = false;
 let currentAngle = 0;
 
@@ -134,11 +133,21 @@ const canvas = document.getElementById('wheel');
 const ctx = canvas.getContext('2d');
 const W = canvas.width, CX = W/2, CY = W/2, R = W/2 - 30;
 
-function save(){
-  localStorage.setItem('sw_design_members', JSON.stringify(members));
-  localStorage.setItem('sw_design_hosted', JSON.stringify(hosted));
-}
+teamRef.on('value', (snapshot) => {
+  const data = snapshot.val();
+  if (data) {
+    members = data.members || structuredClone(DEFAULT_MEMBERS);
+    hosted = data.hosted || [];
+  } else {
+    members = structuredClone(DEFAULT_MEMBERS);
+    hosted = [];
+    teamRef.set({ members, hosted });
+  }
+  drawWheel(currentAngle);
+  if (document.getElementById('panelOverlay').classList.contains('open')) renderPanel();
+});
 
+function save(){ teamRef.set({ members, hosted }); }
 function activeMembers(){ return members.filter(m => m.active); }
 
 function drawWheel(angle){
@@ -148,8 +157,7 @@ function drawWheel(angle){
   if(n === 0){
     ctx.fillStyle='#334155';ctx.beginPath();ctx.arc(CX,CY,R,0,Math.PI*2);ctx.fill();
     ctx.fillStyle='#64748b';ctx.font='600 28px Inter,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText('Geen actieve leden',CX,CY);
-    return;
+    ctx.fillText('Geen actieve leden',CX,CY);return;
   }
   const sliceAngle = (Math.PI*2)/n;
   for(let i=0;i<n;i++){
@@ -158,8 +166,6 @@ function drawWheel(angle){
     ctx.beginPath();ctx.moveTo(CX,CY);ctx.arc(CX,CY,R,start,end);ctx.closePath();
     ctx.fillStyle=COLORS[i%COLORS.length];ctx.fill();
     ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=2;ctx.stroke();
-
-    // Text
     const mid = start + sliceAngle/2;
     const tx = CX + Math.cos(mid)*(R*0.65);
     const ty = CY + Math.sin(mid)*(R*0.65);
@@ -170,14 +176,13 @@ function drawWheel(angle){
     const fontSize = n <= 8 ? 26 : n <= 12 ? 20 : 16;
     ctx.font = `700 ${fontSize}px Inter,sans-serif`;
     ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText((isHosted ? '✓ ' : '') + name, 0, 0);
+    ctx.fillText((isHosted ? '\u2713 ' : '') + name, 0, 0);
     ctx.restore();
   }
-  // Center circle
   ctx.beginPath();ctx.arc(CX,CY,38,0,Math.PI*2);ctx.fillStyle='#1e293b';ctx.fill();
   ctx.strokeStyle='rgba(255,255,255,.1)';ctx.lineWidth=3;ctx.stroke();
   ctx.fillStyle='#94a3b8';ctx.font='600 18px Inter,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-  ctx.fillText('🎯',CX,CY);
+  ctx.fillText('\uD83C\uDFAF',CX,CY);
 }
 
 function spin(){
@@ -185,27 +190,21 @@ function spin(){
   if(active.length < 2 || spinning) return;
   spinning = true;
   document.getElementById('spinBtn').disabled = true;
-
   const n = active.length;
   const sliceAngle = (Math.PI*2)/n;
   const totalSpin = Math.PI*2 * (5 + Math.random()*5) + Math.random()*Math.PI*2;
-  const targetAngle = currentAngle + totalSpin;
   const duration = 4000 + Math.random()*1500;
   const startTime = performance.now();
   const startAngle = currentAngle;
   const ticker = document.getElementById('ticker');
   let lastSegment = -1;
-
   function easeOutQuart(t){ return 1 - Math.pow(1-t,4); }
-
   function animate(now){
     const elapsed = now - startTime;
     const t = Math.min(elapsed/duration, 1);
     const eased = easeOutQuart(t);
     currentAngle = startAngle + totalSpin * eased;
     drawWheel(currentAngle);
-
-    // Ticker tick
     const normAngle = (((-currentAngle % (Math.PI*2)) + Math.PI*2) % (Math.PI*2));
     const seg = Math.floor(normAngle / sliceAngle);
     if(seg !== lastSegment){
@@ -213,13 +212,10 @@ function spin(){
       ticker.classList.add('tick');
       setTimeout(() => ticker.classList.remove('tick'), 50);
     }
-
-    if(t < 1){
-      requestAnimationFrame(animate);
-    } else {
+    if(t < 1){ requestAnimationFrame(animate); }
+    else {
       spinning = false;
       document.getElementById('spinBtn').disabled = false;
-      // Determine winner: the segment at the top (angle = -PI/2 from 3 o'clock)
       const pointerAngle = -Math.PI/2;
       const rel = (((pointerAngle - currentAngle) % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
       const winIdx = Math.floor(rel / sliceAngle);
@@ -241,7 +237,6 @@ function closeWinner(){
   renderPanel();
 }
 
-// Confetti
 function fireConfetti(){
   const c = document.getElementById('confetti');
   c.width = window.innerWidth; c.height = window.innerHeight;
@@ -276,7 +271,6 @@ function fireConfetti(){
   requestAnimationFrame(draw);
 }
 
-// Panel
 function togglePanel(){
   document.getElementById('panelOverlay').classList.toggle('open');
   renderPanel();
@@ -290,8 +284,8 @@ function renderPanel(){
     row.className = 'member-row' + (m.active ? '' : ' absent');
     row.innerHTML = `
       <input type="text" value="${m.name}" onchange="renameMember(${i},this.value)">
-      <button class="toggle-btn" title="${m.active?'Zet afwezig':'Zet actief'}" onclick="toggleMember(${i})">${m.active?'👁️':'💤'}</button>
-      <button title="Verwijder" onclick="removeMember(${i})">✕</button>
+      <button class="toggle-btn" title="${m.active?'Zet afwezig':'Zet actief'}" onclick="toggleMember(${i})">${m.active?'\uD83D\uDC41\uFE0F':'\uD83D\uDCA4'}</button>
+      <button title="Verwijder" onclick="removeMember(${i})">\u2715</button>
     `;
     list.appendChild(row);
   });
@@ -299,9 +293,8 @@ function renderPanel(){
   if(hosted.length === 0){
     hist.innerHTML = '<em>Nog niemand gehost deze sprint.</em>';
   } else {
-    hist.innerHTML = '<ul>' + hosted.map(h => `<li>✓ ${h}</li>`).join('') + '</ul>';
+    hist.innerHTML = '<ul>' + hosted.map(h => `<li>\u2713 ${h}</li>`).join('') + '</ul>';
   }
-  drawWheel(currentAngle);
 }
 
 function addMember(){
@@ -317,7 +310,6 @@ function renameMember(i,v){ members[i].name = v.trim() || members[i].name; save(
 function toggleMember(i){ members[i].active = !members[i].active; save(); renderPanel(); }
 function resetHistory(){ hosted = []; save(); renderPanel(); }
 
-// Init
 drawWheel(currentAngle);
 </script>
 </body>
