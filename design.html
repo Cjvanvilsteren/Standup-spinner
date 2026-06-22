@@ -67,9 +67,11 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 .del-hist-btn{background:none;border:none;color:#64748b;cursor:pointer;font-size:.9rem;padding:2px 6px;border-radius:4px;transition:color .15s}
 .del-hist-btn:hover{color:#f87171}
 footer{position:fixed;bottom:1rem;left:0;right:0;text-align:center;color:#64748b;font-size:.75rem;font-weight:600;letter-spacing:.03em;opacity:.6}
+.pw-gate{position:fixed;inset:0;background:#0f172a;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}.pw-gate.hidden{display:none}.pw-gate h2{color:#f8fafc;font-size:1.3rem;font-weight:800}.pw-gate-row{display:flex;gap:.5rem}.pw-gate-row input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.6rem .8rem;color:#e2e8f0;font-family:inherit;font-size:1rem;outline:none;width:220px}.pw-gate-row input:focus{border-color:#6366f1}.pw-gate-row button{background:#6366f1;color:#fff;border:none;border-radius:8px;padding:.6rem 1.2rem;font-family:inherit;font-weight:700;cursor:pointer;font-size:.95rem}.pw-gate-row button:hover{background:#818cf8}.pw-gate-err{color:#f87171;font-size:.85rem;min-height:1.2em}
 </style>
 </head>
 <body>
+<div class="pw-gate" id="pwGate"><h2>🔐 Voer wachtwoord in</h2><div class="pw-gate-row"><input type="password" id="sitePass" placeholder="Wachtwoord..." onkeydown="if(event.key==='Enter')unlockSite()"><button onclick="unlockSite()">Open</button></div><div class="pw-gate-err" id="sitePassErr"></div></div>
 
 <a href="index.html" class="home-link" title="Terug naar teams">&#8592;</a>
 <h1>Design<span>Standup Host Picker</span></h1>
@@ -366,5 +368,6 @@ function resetSprint(){ hosted = []; save(); renderPanel(); }
 
 drawWheel(currentAngle);
 </script>
+<script>function unlockSite(){var p=document.getElementById("sitePass").value;if(p==="CUSCUSCUS"){sessionStorage.setItem("sw_auth","1");document.getElementById("pwGate").classList.add("hidden")}else{document.getElementById("sitePassErr").textContent="Verkeerd wachtwoord!"}}if(sessionStorage.getItem("sw_auth")==="1"){document.getElementById("pwGate").classList.add("hidden")}</script>
 </body>
 </html>
