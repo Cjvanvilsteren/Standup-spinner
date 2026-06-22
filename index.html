@@ -56,6 +56,8 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
   <a class="team-link" href="web.html"><span>🌐</span>Web</a>
   <a class="team-link" href="klantenservice-tooling.html"><span>🛠️</span>Klantenservice Tooling</a>
   <a class="team-link" href="egain.html"><span>💬</span>eGain</a>
+  <a class="team-link" href="kennismanagement.html"><span>📚</span>Kennismanagement</a>
+  <a class="team-link" href="design-system.html"><span>🎯</span>Design System</a>
 </div>
 
 <button class="admin-btn" onclick="openAdmin()" title="Admin">🔒</button>
@@ -113,6 +115,22 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
           <button class="reset-small" onclick="resetTeam('egain','all')">Alles</button>
         </div>
       </div>
+      <div class="reset-row">
+        <span class="team-name">📚 Kennismanagement</span>
+        <div class="reset-btns">
+          <button class="reset-small" onclick="resetTeam('kennismanagement','sprint')">Sprint</button>
+          <button class="reset-small" onclick="resetTeam('kennismanagement','history')">Geschiedenis</button>
+          <button class="reset-small" onclick="resetTeam('kennismanagement','all')">Alles</button>
+        </div>
+      </div>
+      <div class="reset-row">
+        <span class="team-name">🎯 Design System</span>
+        <div class="reset-btns">
+          <button class="reset-small" onclick="resetTeam('design-system','sprint')">Sprint</button>
+          <button class="reset-small" onclick="resetTeam('design-system','history')">Geschiedenis</button>
+          <button class="reset-small" onclick="resetTeam('design-system','all')">Alles</button>
+        </div>
+      </div>
       <hr style="border:none;border-top:1px solid rgba(228,0,110,.1)">
       <button class="reset-all" onclick="resetEverything()">🗑️ Reset ALLES voor alle teams</button>
       <div class="success-msg" id="successMsg">✓ Gelukt!</div>
@@ -134,7 +152,7 @@ firebase.initializeApp({
 });
 
 var db = firebase.database();
-var TEAMS = ['design','app','web','klantenservice-tooling','egain'];
+var TEAMS = ['design','app','web','klantenservice-tooling','egain','kennismanagement','design-system'];
 var DEFAULT_MEMBERS = [
   {name:'Lid 1',active:true},{name:'Lid 2',active:true},{name:'Lid 3',active:true},
   {name:'Lid 4',active:true},{name:'Lid 5',active:true},{name:'Lid 6',active:true}
