@@ -61,7 +61,7 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 </head>
 <body>
 
-<a href="index.html" class="home-link" title="Terug naar teams">&larr;</a>
+<a href="index.html" class="home-link" title="Terug naar teams">←</a>
 <h1>App<span>Standup Host Picker</span></h1>
 
 <div class="main">
@@ -72,11 +72,11 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
   <button class="spin-btn" id="spinBtn" onclick="spin()">Draai!</button>
 </div>
 
-<button class="gear-btn" onclick="togglePanel()">&x2699;&xFE0F;</button>
+<button class="gear-btn" onclick="togglePanel()">⚙️</button>
 
 <div class="panel-overlay" id="panelOverlay" onclick="togglePanel()">
   <div class="panel" onclick="event.stopPropagation()">
-    <h2>&x2699;&xFE0F; Instellingen</h2>
+    <h2>⚙️ Instellingen</h2>
     <label>Teamleden</label>
     <div class="member-list" id="memberList"></div>
     <div class="add-row">
@@ -86,13 +86,13 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
     <hr style="border:none;border-top:1px solid rgba(255,255,255,.06)">
     <label>Sprint geschiedenis</label>
     <div class="history-section" id="historySection"></div>
-    <button class="reset-btn" onclick="resetHistory()">&x1F504; Reset sprint</button>
+    <button class="reset-btn" onclick="resetHistory()">🔄 Reset sprint</button>
   </div>
 </div>
 
 <div class="winner-overlay" id="winnerOverlay" onclick="closeWinner()">
   <div class="winner-card" onclick="event.stopPropagation()">
-    <div class="emoji">&x1F389;</div>
+    <div class="emoji">🎉</div>
     <div class="name" id="winnerName"></div>
     <div class="sub">is de host deze week!</div>
     <button class="close-btn" onclick="closeWinner()">Sluiten</button>
