@@ -60,6 +60,8 @@ canvas{width:420px;height:420px;filter:drop-shadow(0 0 30px rgba(99,102,241,.25)
 .history-section td{padding:.4rem .5rem;color:#e2e8f0;font-size:.85rem;border-bottom:1px solid rgba(255,255,255,.04)}
 .history-section td.week{color:#6366f1;font-weight:700}
 .history-section td.name-col{color:#4ade80;font-weight:600}
+.del-hist-btn{background:none;border:none;color:#64748b;cursor:pointer;font-size:.9rem;padding:2px 6px;border-radius:4px;transition:color .15s}
+.del-hist-btn:hover{color:#f87171}
 .sprint-section{margin-top:.5rem;font-size:.85rem;color:#64748b}
 .sprint-section ul{list-style:none;margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem}
 .sprint-section li{background:rgba(74,222,128,.1);color:#4ade80;padding:.2rem .6rem;border-radius:6px;font-weight:600;font-size:.8rem}
@@ -337,7 +339,8 @@ function renderPanel(){
     hist.innerHTML = '<em>Nog geen geschiedenis.</em>';
   } else {
     var rows = history.slice().reverse().map(function(entry,idx){
-      var ri = history.length - 1 - idx; return '<tr><td class="week">Week ' + entry.week + '</td><td class="name-col">' + entry.name + '</td><td>' + entry.year + '</td><td><button onclick="removeHistory(' + ri + ')" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:.9rem;padding:2px 4px;border-radius:4px" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'">\u2715</button></td></tr>';
+      var ri = history.length - 1 - idx;
+      return '<tr><td class="week">Week ' + entry.week + '</td><td class="name-col">' + entry.name + '</td><td>' + entry.year + '</td><td><button class="del-hist-btn" onclick="removeHistory(' + ri + ')">\u2715</button></td></tr>';
     }).join('');
     hist.innerHTML = '<table><thead><tr><th>Week</th><th>Host</th><th>Jaar</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
