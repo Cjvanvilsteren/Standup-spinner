@@ -7,43 +7,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
-h1{font-size:2rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f8fafc;margin-bottom:.5rem}
-p{color:#94a3b8;margin-bottom:2.5rem;font-size:1rem}
+body{font-family:'Inter',system-ui,sans-serif;background:#ffffff;color:#1B0A5C;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
+h1{font-size:2rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#1B0A5C;margin-bottom:.5rem}
+p{color:#6b5b95;margin-bottom:2.5rem;font-size:1rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;max-width:700px;width:90%}
-a.team-link{text-decoration:none;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;text-align:center;color:#f8fafc;font-weight:700;font-size:1.15rem;transition:background .2s,transform .15s,box-shadow .2s}
-a.team-link:hover{background:rgba(99,102,241,.15);transform:translateY(-2px);box-shadow:0 8px 24px rgba(99,102,241,.2)}
+a.team-link{text-decoration:none;background:#FDE8EF;border:2px solid rgba(228,0,110,.12);border-radius:16px;padding:1.5rem;text-align:center;color:#1B0A5C;font-weight:700;font-size:1.15rem;transition:background .2s,transform .15s,box-shadow .2s}
+a.team-link:hover{background:#f9d0e0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(228,0,110,.15)}
 a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
 
-.admin-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#64748b;font-size:1.2rem;width:44px;height:44px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s}
-.admin-btn:hover{background:rgba(255,255,255,.12);color:#e2e8f0}
+.admin-btn{position:fixed;bottom:1.5rem;right:1.5rem;background:#FDE8EF;border:2px solid rgba(228,0,110,.12);color:#1B0A5C;font-size:1.2rem;width:44px;height:44px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.admin-btn:hover{background:#f9d0e0}
 
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;display:flex;align-items:center;justify-content:center}
+.modal-overlay{position:fixed;inset:0;background:rgba(27,10,92,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;display:flex;align-items:center;justify-content:center}
 .modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:#1e293b;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem;width:400px;max-width:90vw;display:flex;flex-direction:column;gap:1.2rem}
-.modal h2{font-size:1.1rem;font-weight:700;color:#f8fafc;margin:0}
-.modal label{font-size:.8rem;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.modal{background:#fff;border:2px solid rgba(228,0,110,.1);border-radius:20px;padding:2rem;width:400px;max-width:90vw;display:flex;flex-direction:column;gap:1.2rem;box-shadow:0 20px 60px rgba(27,10,92,.15)}
+.modal h2{font-size:1.1rem;font-weight:700;color:#1B0A5C;margin:0}
+.modal label{font-size:.8rem;color:#6b5b95;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
 
 .pw-row{display:flex;gap:.5rem}
-.pw-row input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.55rem .75rem;color:#e2e8f0;font-family:inherit;font-size:.9rem;outline:none}
-.pw-row input:focus{border-color:#6366f1}
-.pw-row button{background:#6366f1;color:#fff;border:none;border-radius:8px;padding:.55rem 1rem;font-family:inherit;font-weight:700;cursor:pointer;font-size:.9rem}
-.pw-row button:hover{background:#818cf8}
+.pw-row input{flex:1;background:#FDE8EF;border:2px solid rgba(228,0,110,.15);border-radius:8px;padding:.55rem .75rem;color:#1B0A5C;font-family:inherit;font-size:.9rem;outline:none}
+.pw-row input:focus{border-color:#E4006E}
+.pw-row button{background:#E4006E;color:#fff;border:none;border-radius:8px;padding:.55rem 1rem;font-family:inherit;font-weight:700;cursor:pointer;font-size:.9rem}
+.pw-row button:hover{background:#c70060}
 
 .admin-panel{display:none;flex-direction:column;gap:1rem}
 .admin-panel.unlocked{display:flex}
 
-.reset-row{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:.6rem .8rem}
-.reset-row .team-name{font-weight:600;color:#e2e8f0;font-size:.95rem}
+.reset-row{display:flex;align-items:center;justify-content:space-between;background:#FDE8EF;border:1px solid rgba(228,0,110,.1);border-radius:10px;padding:.6rem .8rem}
+.reset-row .team-name{font-weight:600;color:#1B0A5C;font-size:.95rem}
 .reset-row .reset-btns{display:flex;gap:.4rem}
-.reset-small{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#f87171;font-family:inherit;font-weight:600;font-size:.75rem;padding:.3rem .6rem;border-radius:6px;cursor:pointer;transition:background .15s}
-.reset-small:hover{background:rgba(248,113,113,.25)}
-.reset-all{background:rgba(248,113,113,.15);border:1px solid rgba(248,113,113,.3);color:#f87171;font-family:inherit;font-weight:700;font-size:.85rem;padding:.55rem 1rem;border-radius:8px;cursor:pointer;transition:background .15s;width:100%}
-.reset-all:hover{background:rgba(248,113,113,.3)}
+.reset-small{background:rgba(228,0,110,.1);border:1px solid rgba(228,0,110,.2);color:#E4006E;font-family:inherit;font-weight:600;font-size:.75rem;padding:.3rem .6rem;border-radius:6px;cursor:pointer;transition:background .15s}
+.reset-small:hover{background:rgba(228,0,110,.2)}
+.reset-all{background:#E4006E;border:none;color:#fff;font-family:inherit;font-weight:700;font-size:.85rem;padding:.55rem 1rem;border-radius:8px;cursor:pointer;transition:background .15s;width:100%}
+.reset-all:hover{background:#c70060}
 
-.pw-error{color:#f87171;font-size:.85rem;display:none}
+.pw-error{color:#E4006E;font-size:.85rem;display:none}
 .pw-error.show{display:block}
-.success-msg{color:#4ade80;font-size:.85rem;display:none}
+.success-msg{color:#10b981;font-size:.85rem;display:none}
 .success-msg.show{display:block}
 </style>
 </head>
@@ -63,7 +63,6 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
 <div class="modal-overlay" id="adminOverlay" onclick="closeAdmin()">
   <div class="modal" onclick="event.stopPropagation()">
     <h2>🔒 Scrum Master Admin</h2>
-
     <div id="loginSection">
       <label>Wachtwoord</label>
       <div class="pw-row">
@@ -72,7 +71,6 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
       </div>
       <div class="pw-error" id="pwError">Verkeerd wachtwoord!</div>
     </div>
-
     <div class="admin-panel" id="adminPanel">
       <label>Reset per team</label>
       <div class="reset-row">
@@ -115,7 +113,7 @@ a.team-link span{display:block;font-size:2rem;margin-bottom:.5rem}
           <button class="reset-small" onclick="resetTeam('egain','all')">Alles</button>
         </div>
       </div>
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,.06)">
+      <hr style="border:none;border-top:1px solid rgba(228,0,110,.1)">
       <button class="reset-all" onclick="resetEverything()">🗑️ Reset ALLES voor alle teams</button>
       <div class="success-msg" id="successMsg">✓ Gelukt!</div>
     </div>
@@ -146,14 +144,14 @@ function openAdmin(){
   document.getElementById('adminOverlay').classList.add('open');
   document.getElementById('pwInput').value = '';
   document.getElementById('pwError').classList.remove('show');
+  document.getElementById('loginSection').style.display = '';
+  document.getElementById('adminPanel').classList.remove('unlocked');
   document.getElementById('pwInput').focus();
 }
-
 function closeAdmin(){
   document.getElementById('adminOverlay').classList.remove('open');
   document.getElementById('adminPanel').classList.remove('unlocked');
 }
-
 function checkPassword(){
   var pw = document.getElementById('pwInput').value;
   if(pw === 'Counterstrike'){
@@ -164,32 +162,20 @@ function checkPassword(){
     document.getElementById('pwError').classList.add('show');
   }
 }
-
 function showSuccess(){
   var el = document.getElementById('successMsg');
   el.classList.add('show');
   setTimeout(function(){ el.classList.remove('show'); }, 2000);
 }
-
 function resetTeam(slug, mode){
   var ref = db.ref('teams/' + slug);
-  if(mode === 'sprint'){
-    ref.child('hosted').set([]);
-    showSuccess();
-  } else if(mode === 'history'){
-    ref.child('history').set([]);
-    showSuccess();
-  } else if(mode === 'all'){
-    ref.set({ members: DEFAULT_MEMBERS, hosted: [], history: [] });
-    showSuccess();
-  }
+  if(mode === 'sprint'){ ref.child('hosted').set([]); showSuccess(); }
+  else if(mode === 'history'){ ref.child('history').set([]); showSuccess(); }
+  else if(mode === 'all'){ ref.set({ members: DEFAULT_MEMBERS, hosted: [], history: [] }); showSuccess(); }
 }
-
 function resetEverything(){
   if(!confirm('Weet je zeker dat je ALLES wilt resetten voor alle teams?')) return;
-  TEAMS.forEach(function(slug){
-    db.ref('teams/' + slug).set({ members: DEFAULT_MEMBERS, hosted: [], history: [] });
-  });
+  TEAMS.forEach(function(slug){ db.ref('teams/' + slug).set({ members: DEFAULT_MEMBERS, hosted: [], history: [] }); });
   showSuccess();
 }
 </script>
