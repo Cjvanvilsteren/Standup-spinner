@@ -336,10 +336,10 @@ function renderPanel(){
   if(history.length === 0){
     hist.innerHTML = '<em>Nog geen geschiedenis.</em>';
   } else {
-    var rows = history.slice().reverse().map(function(entry){
-      return '<tr><td class="week">Week ' + entry.week + '</td><td class="name-col">' + entry.name + '</td><td>' + entry.year + '</td></tr>';
+    var rows = history.slice().reverse().map(function(entry,idx){
+      var ri = history.length - 1 - idx; return '<tr><td class="week">Week ' + entry.week + '</td><td class="name-col">' + entry.name + '</td><td>' + entry.year + '</td><td><button onclick="removeHistory(' + ri + ')" style="background:none;border:none;color:#64748b;cursor:pointer;font-size:.9rem;padding:2px 4px;border-radius:4px" onmouseover="this.style.color='#f87171'" onmouseout="this.style.color='#64748b'">\u2715</button></td></tr>';
     }).join('');
-    hist.innerHTML = '<table><thead><tr><th>Week</th><th>Host</th><th>Jaar</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    hist.innerHTML = '<table><thead><tr><th>Week</th><th>Host</th><th>Jaar</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 }
 
@@ -354,6 +354,7 @@ function addMember(){
 function removeMember(i){ members.splice(i,1); save(); renderPanel(); }
 function renameMember(i,v){ members[i].name = v.trim() || members[i].name; save(); renderPanel(); }
 function toggleMember(i){ members[i].active = !members[i].active; save(); renderPanel(); }
+function removeHistory(i){ history.splice(i,1); save(); renderPanel(); }
 function resetSprint(){ hosted = []; save(); renderPanel(); }
 
 drawWheel(currentAngle);
