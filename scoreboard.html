@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrum Master Credits — Standup Host Picker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 4rem}
+h1{font-size:1.6rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#f8fafc;text-align:center}
+h1 span{display:block;font-size:.85rem;font-weight:600;letter-spacing:.12em;color:#94a3b8;margin-top:.25rem}
+.home-link{position:fixed;top:1rem;left:1rem;color:#64748b;text-decoration:none;font-size:1.4rem;z-index:100;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);transition:background .2s,color .2s}
+.home-link:hover{background:rgba(255,255,255,.15);color:#e2e8f0}
+.scoreboard{max-width:600px;width:100%;margin-top:2rem}
+.scoreboard-list{display:flex;flex-direction:column;gap:.5rem}
+.score-row{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:.7rem 1rem;transition:background .2s}
+.score-row.gold{background:rgba(250,204,21,.08);border-color:rgba(250,204,21,.2)}
+.score-row.silver{background:rgba(148,163,184,.06);border-color:rgba(148,163,184,.15)}
+.score-row.bronze{background:rgba(180,83,9,.06);border-color:rgba(180,83,9,.15)}
+.score-rank{font-size:1.4rem;width:2.2rem;text-align:center}
+.score-info{flex:1}
+.score-name{font-weight:700;font-size:1rem;color:#f8fafc}
+.score-team{font-size:.75rem;color:#64748b;font-weight:600;margin-top:.1rem}
+.score-count{background:rgba(99,102,241,.15);color:#a5b4fc;padding:.3rem .75rem;border-radius:999px;font-weight:800;font-size:.9rem}
+.score-empty{text-align:center;color:#64748b;font-size:.95rem;padding:2rem}
+footer{position:fixed;bottom:1rem;left:0;right:0;text-align:center;color:#64748b;font-size:.75rem;font-weight:600;letter-spacing:.03em;opacity:.6}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="home-link" title="Terug naar teams">&#8592;</a>
+<h1>🏆 Scrum Master Credits<span>Hall of Fame</span></h1>
+
+<div class="scoreboard">
+  <div class="scoreboard-list" id="scoreboard"><div class="score-empty">Laden...</div></div>
+</div>
+
+<footer>Made by St1n0</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyALzWCrO8LBu-zz2nEH4VbgmwtFMytpW08",
+  authDomain: "stand-up-picker-a2570.firebaseapp.com",
+  databaseURL: "https://stand-up-picker-a2570-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "stand-up-picker-a2570",
+  storageBucket: "stand-up-picker-a2570.firebasestorage.app",
+  messagingSenderId: "404106710989",
+  appId: "1:404106710989:web:4433e3bc3f797ece50be84"
+});
+
+var db = firebase.database();
+var TEAMS = ['design','app','web','klantenservice-tooling','egain','kennismanagement','design-system'];
+var TEAM_NAMES = {
+  design:'Design', app:'App', web:'Web',
+  'klantenservice-tooling':'Klantenservice Tooling',
+  egain:'eGain', kennismanagement:'Kennismanagement',
+  'design-system':'Design System'
+};
+
+var allHistory = {};
+TEAMS.forEach(function(slug){
+  db.ref('teams/' + slug + '/history').on('value', function(snap){
+    allHistory[slug] = snap.val() || [];
+    renderScoreboard();
+  });
+});
+
+function renderScoreboard(){
+  var counts = {};
+  TEAMS.forEach(function(slug){
+    var hist = allHistory[slug] || [];
+    hist.forEach(function(entry){
+      var key = entry.name + '||' + slug;
+      if(!counts[key]) counts[key] = {name: entry.name, team: slug, count: 0};
+      counts[key].count++;
+    });
+  });
+  var sorted = Object.values(counts).sort(function(a,b){ return b.count - a.count; });
+  var el = document.getElementById('scoreboard');
+  if(sorted.length === 0){
+    el.innerHTML = '<div class="score-empty">Nog geen hosts gedraaid. Ga spinnen!</div>';
+    return;
+  }
+  var medals = ['🥇','🥈','🥉'];
+  var classes = ['gold','silver','bronze'];
+  el.innerHTML = sorted.map(function(item, i){
+    var rank = i < 3 ? medals[i] : '<span style="color:#64748b;font-size:.9rem;font-weight:700">' + (i+1) + '</span>';
+    var cls = i < 3 ? ' ' + classes[i] : '';
+    return '<div class="score-row' + cls + '">'
+      + '<div class="score-rank">' + rank + '</div>'
+      + '<div class="score-info"><div class="score-name">' + item.name + '</div><div class="score-team">' + TEAM_NAMES[item.team] + '</div></div>'
+      + '<div class="score-count">' + item.count + 'x</div>'
+      + '</div>';
+  }).join('');
+}
+</script>
+</body>
+</html>
